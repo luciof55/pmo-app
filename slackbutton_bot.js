@@ -26,8 +26,6 @@ var express = require('express');
 var app = express();
 var Botkit = require('botkit');
 var http = require('http').Server(app);
-var dotenv = require('dotenv');
-dotenv.load();
 
 if (!process.env.clientId || !process.env.clientSecret || !process.env.port) {
   console.log('Error: Specify clientId clientSecret and port in environment');
