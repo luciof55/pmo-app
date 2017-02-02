@@ -28,7 +28,7 @@ var Botkit = require('botkit');
 var http = require('http').Server(app);
 
 if (!process.env.clientId || !process.env.clientSecret || !process.env.port) {
-  console.log('Error: Specify clientId clientSecret and port in environment');
+  console.log('--------------------Error: Specify clientId clientSecret and port in environment-------------------');
   process.exit(1);
 }
 
