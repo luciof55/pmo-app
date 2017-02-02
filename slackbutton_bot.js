@@ -22,16 +22,12 @@ This is a sample Slack Button application that adds a bot to one or many slack t
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 /* Uses the slack button feature to offer a real time bot to multiple teams */
-var express = require('express');
-var app = express();
 var Botkit = require('botkit');
-var http = require('http').Server(app);
 
-if (!process.env.clientId || !process.env.clientSecret || !process.env.port) {
+if (!process.env.clientId || !process.env.clientSecret) {
   console.log('--------------------Error: Specify clientId clientSecret and port in environment-------------------');
   process.exit(1);
 }
-
 
 var controller = Botkit.slackbot({
   debug: true,
