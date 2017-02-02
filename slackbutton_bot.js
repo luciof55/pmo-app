@@ -43,21 +43,21 @@ var controller = Botkit.slackbot({
   }
 );
 
-controller.setupWebserver(process.env.port,function(err,webserver) {
-  controller.createWebhookEndpoints(controller.webserver);
+// controller.setupWebserver(process.env.port,function(err,webserver) {
+  // controller.createWebhookEndpoints(controller.webserver);
 
-  controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
-    if (err) {
-      res.status(500).send('ERRORRRRRRRRRRRRRRRRRRRRRR: ' + err);
-    } else {
-      res.send('Success!');
-    }
-  });
+  // controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
+    // if (err) {
+      // res.status(500).send('ERRORRRRRRRRRRRRRRRRRRRRRR: ' + err);
+    // } else {
+      // res.send('Success!');
+    // }
+  // });
   
-  webserver.get('/test', function(req, res) {
-            res.redirect('test.html');
-        });
-});
+  // webserver.get('/test', function(req, res) {
+            // res.redirect('test.html');
+        // });
+// });
 
 
 // just a simple way to make sure we don't
