@@ -1,4 +1,4 @@
-/CONFIG===============================================
+//CONFIG===============================================
 
 /* Uses the slack button feature to offer a real time bot to multiple teams */
 var Botkit = require('botkit');
