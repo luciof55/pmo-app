@@ -2,9 +2,9 @@
   "name": "pmobot",
   "version": "1.0.0",
   "description": "A PMO Bot",
-  "main": "index.js",
+  "main": "slackbutton_bot.js",
   "scripts": {
-    "start": "node slackbutton_bot"
+    "start": "node slackbutton_bot.js"
   },
   "keywords": [
     "pmo",
