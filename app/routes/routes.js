@@ -33,10 +33,10 @@ module.exports = function(app) {
   var perform_auth = function(auth_code, res){
     //post code, app ID, and app secret, to get token
     var auth_adresse = 'https://slack.com/api/oauth.access?'
-    auth_adresse += 'client_id=' + process.env.SLACK_ID
-    auth_adresse += '&client_secret=' + process.env.SLACK_SECRET
+    auth_adresse += 'client_id=' + process.env.clientId
+    auth_adresse += '&client_secret=' + process.env.clientSecret
     auth_adresse += '&code=' + auth_code
-    auth_adresse += '&redirect_uri=' + process.env.SLACK_REDIRECT + "new"
+    auth_adresse += '&redirect_uri=' + process.env.slackRedirect + "new"
 
     Request.get(auth_adresse, function (error, response, body) {
       if (error){
