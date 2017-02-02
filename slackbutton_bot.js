@@ -43,21 +43,21 @@ var controller = Botkit.slackbot({
   }
 );
 
-// controller.setupWebserver(process.env.port,function(err,webserver) {
-  // controller.createWebhookEndpoints(controller.webserver);
+controller.setupWebserver(process.env.PORT,function(err,webserver) {
+  controller.createWebhookEndpoints(controller.webserver);
 
-  // controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
-    // if (err) {
-      // res.status(500).send('ERRORRRRRRRRRRRRRRRRRRRRRR: ' + err);
-    // } else {
-      // res.send('Success!');
-    // }
-  // });
+  controller.createOauthEndpoints(controller.webserver,function(err,req,res) {
+    if (err) {
+      res.status(500).send('ERRORRRRRRRRRRRRRRRRRRRRRR: ' + err);
+    } else {
+      res.send('Success!');
+    }
+  });
   
-  // webserver.get('/test', function(req, res) {
-            // res.redirect('test.html');
-        // });
-// });
+  webserver.get('/test', function(req, res) {
+            res.redirect('test.html');
+        });
+});
 
 
 // just a simple way to make sure we don't
@@ -161,23 +161,23 @@ controller.on('conversationEnded', function(bot, event) {
 	  console.log('Tick conversationEnded');
 });
 
-controller.storage.teams.all(function(err,teams) {
+// controller.storage.teams.all(function(err,teams) {
 
-  if (err) {
-    throw new Error(err);
-  }
+  // if (err) {
+    // throw new Error(err);
+  // }
 
-  // connect all teams with bots up to slack!
-  for (var t  in teams) {
-    if (teams[t].bot) {
-      controller.spawn(teams[t]).startRTM(function(err, bot) {
-        if (err) {
-          console.log('Error connecting bot to Slack!!!!:',err);
-        } else {
-          trackBot(bot);
-        }
-      });
-    }
-  }
+  // // connect all teams with bots up to slack!
+  // for (var t  in teams) {
+    // if (teams[t].bot) {
+      // controller.spawn(teams[t]).startRTM(function(err, bot) {
+        // if (err) {
+          // console.log('Error connecting bot to Slack!!!!:',err);
+        // } else {
+          // trackBot(bot);
+        // }
+      // });
+    // }
+  // }
 
-});
+// });
