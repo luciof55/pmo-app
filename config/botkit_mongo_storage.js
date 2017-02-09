@@ -7,16 +7,22 @@ var db = require('monk');
  */
 module.exports = function(config) {
 
-    if (!config || !config.mongoUri)
-        throw new Error('Need to provide mongo address.');
-
+    if (!config || !config.mongoUri) throw new Error('Need to provide mongo address.');
+	
+	console.log("================== CREATE DB ==================");
     var Teams = db(config.mongoUri).get('teams'),
         Users = db(config.mongoUri).get('users'),
         Channels = db(config.mongoUri).get('channels');
-
+	console.log("================== DB CREATED==================");
+	
     var unwrapFromList = function(cb) {
+		console.log("================== unwrapFromList ==================");
         return function(err, data) {
-            if (err) return cb(err);
+            if (err) {
+				console.log('================unwrapFromList - Error ==========================');
+				return cb(err);
+			};
+			console.log('================unwrapFromList - OK ==========================');
             cb(null, data);
         };
     };
@@ -24,18 +30,19 @@ module.exports = function(config) {
     var storage = {
         teams: {
             get: function(id, cb) {
-                Teams.findOne({id: id}, unwrapFromList(cb));
+				console.log("================== MONGO GET Team - 1==================");
+                console.log("----------------" + Teams.findOne({id: id}, cb)+ "------------------");
+				console.log("================== MONGO GET Team - 2==================");
             },
             save: function(data, cb) {
-                Teams.findAndModify({
-                    id: data.id
-                }, data, {
-                    upsert: true,
-                    new: true
-                }, cb);
+				console.log("================== MONGO SAVE Team - 1==================");
+                console.log("----------------" + Teams.findOneAndUpdate({id: data.id}, data, {upsert: true, new: true}, cb) + "------------------");
+				console.log("================== MONGO SAVE Team - 2==================");
             },
             all: function(cb) {
-                Teams.find({}, cb);
+				console.log("================== MONGO ALL Teams - 1 ==================");
+                console.log("----------------" + Teams.find({}, cb) + "------------------");
+				console.log("================== MONGO ALL Teams - 2 ==================");
             }
         },
         users: {

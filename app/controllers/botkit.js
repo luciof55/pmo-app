@@ -10,17 +10,25 @@ if (!process.env.clientId || !process.env.clientSecret || !process.env.PORT) {
   process.exit(1);
 }
 
+console.log('================INIT MONGODB==========================');
 var controller = Botkit.slackbot({
+  json_file_store: './db_slackbutton_bot/',
   storage: botkit_mongo_storage
-})
+});
+console.log('================MONGODB WAS INIT==========================');
 
 exports.controller = controller
 
 //CONNECTION FUNCTIONS=====================================================
-exports.connect = function(team_config){
+exports.create = function(team_config){
   var bot = controller.spawn(team_config);
   controller.trigger('create_bot', [bot, team_config]);
-}
+};
+
+exports.connect = function(team_config){
+  var bot = controller.spawn(team_config);
+  
+};
 
 // just a simple way to make sure we don't
 // connect to the RTM twice for the same team
@@ -105,8 +113,9 @@ controller.on('direct_message,mention,direct_mention',function(bot,message) {
   });
 });
 
+console.log('================START FIND TEAMS==========================');
 controller.storage.teams.all(function(err,teams) {
-
+  console.log("================== CALLBACK ALL EXECUTE START ==================");
   console.log(teams)
 
   if (err) {
@@ -115,6 +124,7 @@ controller.storage.teams.all(function(err,teams) {
 
   // connect all teams with bots up to slack!
   for (var t  in teams) {
+	console.log("================== TEAM FOUND ==================");
     if (teams[t].bot) {
       var bot = controller.spawn(teams[t]).startRTM(function(err) {
         if (err) {
@@ -125,5 +135,6 @@ controller.storage.teams.all(function(err,teams) {
       });
     }
   }
-
+  console.log("================== CALLBACK ALL EXECUTE END ==================");
 });
+console.log('================END FIND TEAMS==========================');
